@@ -33,6 +33,16 @@ interface State {
   isVisibleSaveDialog: boolean;
 }
 
+let textLoading = [
+  'в ЦРУ',
+  'в КГБ',
+  'на PornHub',
+  'на YouTube',
+  'в TikTok',
+  'на Yandex.Disk',
+  'в Газпром-Медиа',
+];
+
 class Camera extends PureComponent<Props, State> {
   state: State;
   camera: RNCamera | null;
@@ -71,7 +81,7 @@ class Camera extends PureComponent<Props, State> {
         return;
       }
 
-      this.setState({recording: true});
+      this.setState({recording: true, remaining: 30});
 
       this.intervalID = setInterval(() => {
         const {remaining} = this.state;
@@ -112,6 +122,7 @@ class Camera extends PureComponent<Props, State> {
       );
 
       if (errorFile) {
+        console.log(errorFile);
         Alert.alert(
           'Упппсииии, что-то пошло не так. Мы конечно дико извиняемся, но попробуйте записать видео ещё раз, так как это видео мы нигде не сохранили',
         );
@@ -120,9 +131,9 @@ class Camera extends PureComponent<Props, State> {
       const data = {
         name,
         type,
-        base64: base64file,
         userId,
         videoId,
+        base64: base64file,
       };
 
       const [error] = await to(api.upload(data));
@@ -174,7 +185,11 @@ class Camera extends PureComponent<Props, State> {
     if (processing) {
       button = (
         <View style={styles.processing}>
-          <ActivityIndicator animating size={18} />
+          <ActivityIndicator animating size={32} />
+          <Text style={styles.processingTitle}>
+            Загружаю твой видосик{' '}
+            {textLoading[Math.floor(Math.random() * 6) + 0]}
+          </Text>
         </View>
       );
     }
@@ -226,6 +241,7 @@ interface Styles {
   processing: ViewStyle;
   secondsRemaining: ViewStyle;
   secondsRemainingTitle: TextStyle;
+  processingTitle: TextStyle;
 }
 
 const styles = StyleSheet.create<Styles>({
@@ -269,9 +285,11 @@ const styles = StyleSheet.create<Styles>({
     width: 20,
   },
   processing: {
-    width: 75,
-    height: 75,
-    borderRadius: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  processingTitle: {
+    color: '#fff',
   },
   secondsRemaining: {
     position: 'absolute',

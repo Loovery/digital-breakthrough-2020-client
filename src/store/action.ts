@@ -19,6 +19,17 @@ export const initApp = () => {
 export const getVideoList = () => {
   return async (dispatch: any) => {
     const videoList = await storage.getVideoList();
+    //
+    // videoList.forEach((video) => {
+    //   if (video.name.toLowerCase().indexOf('gin') > -1 || video.name.toLowerCase().indexOf('beer') > -1 || video.name.toLowerCase().indexOf('vodka') > -1) {
+    //     video.status = 'notTrust';
+    //   } else {
+    //     video.status = 'trust';
+    //   }
+    // });
+
+    // await storage.setVideoList(videoList);
+
     dispatch({type: types.GET_VIDEO_LIST, videoList});
 
     return Promise.resolve();
@@ -33,8 +44,6 @@ export const addVideo = (id: string, name: string) => {
     videoList.push({id, name, status: 'moderation'});
 
     dispatch({type: types.GET_VIDEO_LIST, videoList});
-
-    return Promise.resolve();
   };
 };
 

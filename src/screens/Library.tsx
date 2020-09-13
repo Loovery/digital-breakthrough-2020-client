@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React, {Component} from 'react';
 import {View, Text, StyleSheet, FlatList} from 'react-native';
 import theme from '../theme';
 import TrustSVG from '../assets/trust.svg';
@@ -6,23 +6,30 @@ import NotTrustSVG from '../assets/not_trust.svg';
 import ModerationSVG from '../assets/checking.svg';
 import {SvgXml} from 'react-native-svg';
 import {IReducer, IVideo} from '../store/reducer';
-import {initApp} from '../store/action';
 import {connect} from 'react-redux';
+import {getVideoList} from '../store/action';
 
 interface Props {
   userId: string;
   videoList: IVideo[];
+  getVideoList: Function;
 }
 
 const sizeIcon: number = 26;
 
-class Library extends PureComponent<Props> {
+class Library extends Component<Props> {
   constructor(props: Props) {
     super(props);
 
     this.state = {
       videos: [],
     };
+  }
+
+  componentDidMount() {
+    setInterval(() => {
+      this.props.getVideoList();
+    }, 5000);
   }
 
   get renderItem() {
@@ -115,16 +122,11 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state: IReducer) {
-  const {userId, videoList} = state;
-
-  return {
-    userId,
-    videoList,
-  };
+  return state;
 }
 
 const mapDispatchToProps = {
-  initApp,
+  getVideoList,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Library);

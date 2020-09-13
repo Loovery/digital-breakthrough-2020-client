@@ -64,7 +64,6 @@ const changeStatusVideo = async (id: string, status: string) => {
   const index = await getVideoIndex(id, videos);
   videos[index].status = status;
 
-  console.log('change status');
   AsyncStorage.setItem(fields.listVideo, JSON.stringify(videos));
 };
 

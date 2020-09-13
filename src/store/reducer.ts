@@ -34,6 +34,11 @@ export default (state: IReducer = initialState, action: IAction) => {
         ...state,
         videoList: action.videoList,
       };
+    case types.CHANGED_STATUS:
+      return {
+        ...state,
+        videoList: action.videoList,
+      };
     default:
       return state;
   }

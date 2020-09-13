@@ -18,6 +18,7 @@ import {uuid} from '../utils/uuid';
 import {connect} from 'react-redux';
 import {IReducer} from '../store/reducer';
 import {addVideo, initApp} from '../store/action';
+import RNFS from 'react-native-fs';
 
 interface Props {
   initApp: Function;
@@ -106,11 +107,21 @@ class Camera extends PureComponent<Props, State> {
 
       const {userId} = this.props;
 
+      const [errorFile, base64file] = await to(
+        RNFS.readFile(uri.substring(7), 'base64'),
+      );
+
+      if (errorFile) {
+        Alert.alert(
+          'Упппсииии, что-то пошло не так. Мы конечно дико извиняемся, но попробуйте записать видео ещё раз, так как это видео мы нигде не сохранили',
+        );
+      }
+
       const data = new FormData();
       data.append('video', {
         name,
         type,
-        uri,
+        base64: base64file,
         userId,
         videoId,
       });

@@ -1,6 +1,7 @@
 import axios from '../axios';
 import config from '../../config';
 import to from 'await-to-js';
+import storage from '../storage';
 
 const upload = async (data: any) => {
   const [error] = await to(axios.post(config.uploadVideo, data));
@@ -13,7 +14,10 @@ const upload = async (data: any) => {
 };
 
 const getList = async () => {
-  const [error, res] = await to(axios.get(config.getList));
+  const userId = await storage.getUserId();
+  const data = {userId};
+
+  const [error, res] = await to(axios.post(config.getList, data));
 
   if (error || !res) {
     throw error;

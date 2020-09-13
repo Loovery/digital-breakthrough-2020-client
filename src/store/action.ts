@@ -48,7 +48,9 @@ export const getList = () => {
     const refresh = async () => {
       const [error, data] = await to(api.getList());
 
-      if (!error) {
+      console.log(data);
+
+      if (!error && typeof data === 'object') {
         const {videoList} = getState();
         const videos = videoList || (await storage.getVideoList());
 

@@ -124,7 +124,7 @@ class Camera extends PureComponent<Props, State> {
         this.props.addVideo(videoId, name);
       }
 
-      this.setState({processing: false});
+      this.setState({processing: false, remaining: config.maxSecVideo});
     };
   }
 

@@ -27,13 +27,13 @@ class Library extends PureComponent<Props> {
 
   get renderItem() {
     return ({item}) => {
-      let color = '#41d750';
+      let color = theme.trustColor;
       let icon = TrustSVG;
       if (item.status === 'notTrust') {
-        color = '#d74141';
+        color = theme.notTrustColor;
         icon = NotTrustSVG;
       } else if (item.status === 'moderation') {
-        color = '#d7a041';
+        color = theme.moderationColor;
         icon = ModerationSVG;
       }
 
@@ -56,7 +56,7 @@ class Library extends PureComponent<Props> {
       <View style={styles.item}>
         <Text style={styles.title}>Пока вы не сняли не одного видео</Text>
       </View>
-    )
+    );
   }
 
   render() {

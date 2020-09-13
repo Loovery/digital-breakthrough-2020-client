@@ -9,10 +9,11 @@ import {IVideo} from './reducer';
 // };
 
 export const initApp = () => {
-  return async (dispatch: any) => {
+  return async (dispatch: any, getState: Function) => {
     const userId = await storage.getUserId();
     dispatch({type: types.USER_ID, userId});
 
+    getList()(dispatch, getState);
     await getVideoList()(dispatch);
 
     return Promise.resolve();
@@ -44,7 +45,7 @@ export const addVideo = (id: string, name: string) => {
 
 export const getList = () => {
   return async (dispatch: any, getState: Function) => {
-    setInterval(async () => {
+    const refresh = async () => {
       const [error, data] = await to(api.getList());
 
       if (!error) {
@@ -64,6 +65,9 @@ export const getList = () => {
 
         dispatch({type: types.GET_VIDEO_LIST, videoList: videos});
       }
-    }, 30000);
+    };
+
+    await refresh();
+    setInterval(refresh, 30000);
   };
 };

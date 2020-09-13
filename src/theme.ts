@@ -9,4 +9,8 @@ export default {
   listItemColor: '#fff',
 
   iconColor: '#553cd0',
+
+  trustColor: '#41d750',
+  notTrustColor: '#d74141',
+  moderationColor: '#d7a041',
 };

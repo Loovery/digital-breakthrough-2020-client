@@ -74,11 +74,12 @@ class Library extends Component<Props> {
 
   render() {
     const {videoList} = this.props;
+    const data = JSON.parse(JSON.stringify(videoList)).reverse();
 
     return (
       <FlatList
         style={styles.container}
-        data={videoList}
+        data={data}
         renderItem={this.renderItem}
         ListEmptyComponent={this.listEmptyComponent}
         keyExtractor={(item) => item.id}

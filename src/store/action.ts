@@ -56,13 +56,10 @@ export const getList = () => {
         const {videoList} = getState();
         const videos = videoList || (await storage.getVideoList());
 
-        // Не было время придумывать изысканное решение
-        data.forEach((item: IVideo) => {
-          videos.forEach((video: IVideo) => {
-            if (item.id === video.id) {
-              video.status = item.status;
-            }
-          });
+        videos.forEach((video: IVideo) => {
+          if (data.hasOwnProperty(video.id)) {
+            video.status = data[video.id];
+          }
         });
 
         storage.setVideoList(videos);
@@ -72,6 +69,6 @@ export const getList = () => {
     };
 
     await refresh();
-    setInterval(refresh, 30000);
+    setInterval(refresh, 10000);
   };
 };

@@ -8,6 +8,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 
 import {Provider} from 'react-redux';
 import {store} from './src/store';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const App = () => {
   return (

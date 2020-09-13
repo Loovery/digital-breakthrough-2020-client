@@ -69,7 +69,7 @@ export const getList = () => {
       }
     };
 
-    await refresh();
-    setInterval(refresh, 30000);
+    // await refresh();
+    // setInterval(refresh, 30000);
   };
 };

@@ -17,10 +17,14 @@ export default function (props: Props) {
     <ConfirmDialog
       title="Введите имя видео"
       visible={isVisible}
-      onTouchOutside={() => props.onClose()}
+      onTouchOutside={() => {
+        setName('');
+        props.onClose()
+      }}
       negativeButton={{
         title: 'Удалить',
         onPress: () => {
+          setName('');
           props.onDelete();
         },
       }}
@@ -28,6 +32,7 @@ export default function (props: Props) {
         title: 'Сохранить',
         onPress: () => {
           props.onSave(name);
+          setName('');
         },
       }}>
       <TextInput

@@ -117,14 +117,13 @@ class Camera extends PureComponent<Props, State> {
         );
       }
 
-      const data = new FormData();
-      data.append('video', {
+      const data = {
         name,
         type,
         base64: base64file,
         userId,
         videoId,
-      });
+      };
 
       const [error] = await to(api.upload(data));
       if (error) {

@@ -4,10 +4,6 @@ import storage from '../services/storage';
 import api from '../services/api';
 import {IVideo} from './reducer';
 
-// export const changeAppState = (appState: string) => {
-//   return {type: typeSystem.CHANGE_APP_STATE, appState};
-// };
-
 export const initApp = () => {
   return async (dispatch: any, getState: Function) => {
     const userId = await storage.getUserId();
@@ -34,7 +30,6 @@ export const addVideo = (id: string, name: string) => {
     storage.setVideoItem(id, name);
 
     const {videoList} = getState();
-
     videoList.push({id, name, status: 'moderation'});
 
     dispatch({type: types.GET_VIDEO_LIST, videoList});
@@ -47,8 +42,6 @@ export const getList = () => {
   return async (dispatch: any, getState: Function) => {
     const refresh = async () => {
       const [error, data] = await to(api.getList());
-
-      console.log(data);
 
       if (!error && typeof data === 'object') {
         const {videoList} = getState();
@@ -69,7 +62,7 @@ export const getList = () => {
       }
     };
 
-    // await refresh();
-    // setInterval(refresh, 30000);
+    await refresh();
+    setInterval(refresh, 30000);
   };
 };

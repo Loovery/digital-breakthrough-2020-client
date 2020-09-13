@@ -106,6 +106,7 @@ const styles = StyleSheet.create({
   },
   status: {
     alignItems: 'center',
+    width: 100,
   },
   statusTitle: {
     fontSize: 10,

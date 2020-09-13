@@ -137,6 +137,7 @@ class Camera extends PureComponent<Props, State> {
       };
 
       const [error] = await to(api.upload(data));
+
       if (error) {
         Alert.alert(
           'Упппсииии, что-то пошло не так. Мы конечно дико извиняемся, но попробуйте записать видео ещё раз, так как это видео мы нигде не сохранили',

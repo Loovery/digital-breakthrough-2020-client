@@ -87,7 +87,7 @@ class Camera extends PureComponent<Props, State> {
 
       const {uri, codec} = await this.camera.recordAsync();
       this.uri = uri;
-      this.codec = codec.toString();
+      this.codec = codec ? codec.toString() : 'mp4';
 
       this.setState({
         recording: false,
@@ -98,7 +98,7 @@ class Camera extends PureComponent<Props, State> {
   }
 
   get uploadToServer() {
-    return async (uri: any, codec: string = 'mp4', name: string) => {
+    return async (uri: any, codec: string, name: string) => {
       this.setState({isVisibleSaveDialog: false});
 
       const type = `video/${codec}`;
@@ -118,7 +118,7 @@ class Camera extends PureComponent<Props, State> {
       const [error] = await to(api.upload(data));
       if (error) {
         Alert.alert(
-          'Упппсииии, что-то пошло не так. Мы конечно дико извиняемся, но попробуйте записать видео ещё раз, так как это видео мы ни где не сохранили',
+          'Упппсииии, что-то пошло не так. Мы конечно дико извиняемся, но попробуйте записать видео ещё раз, так как это видео мы нигде не сохранили',
         );
       } else {
         this.props.addVideo(videoId, name);

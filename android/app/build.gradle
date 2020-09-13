@@ -132,8 +132,9 @@ android {
         applicationId "com.dreamteam116"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode 3
+        versionName "1.2"
+        multiDexEnabled true
         missingDimensionStrategy 'react-native-camera', 'general'
     }
     splits {

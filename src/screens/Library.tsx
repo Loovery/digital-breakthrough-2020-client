@@ -74,7 +74,7 @@ class Library extends PureComponent<Props> {
         data={videoList}
         renderItem={this.renderItem}
         ListEmptyComponent={this.listEmptyComponent}
-        keyExtractor={(item) => item.name}
+        keyExtractor={(item) => item.id}
       />
     );
   }
